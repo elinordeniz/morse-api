@@ -1,0 +1,70 @@
+openapi: 3.0.0
+servers: []
+info:
+  description: >-
+    This is an API that provides system information with morse translation.
+    <p>-----------------------------------------</p>
+  version: 1.0.0-oas3
+  title: MORSE PAI
+  contact:
+    email: elinordeniz@gmail.com
+paths:
+  /morse-api:
+    post:
+      tags:
+        - Public
+      summary: get your system details
+      operationId: mozrseApi
+      description: >
+        By passing the commands of ‘CPU’, ‘ARCH’, ‘FREEMEM’, ‘HOSTNAME’, ‘PLATFORM’, ‘TOTALMEM’, ‘TYPE’, ‘UPTIME’ in morse code you get the particular system information in morse code as a response
+      parameters:
+        - in: query
+          name: command
+          description: >-
+            commands required: ‘CPU’, ‘ARCH’, ‘FREEMEM’, ‘HOSTNAME’, ‘PLATFORM’, ‘TOTALMEM’, ‘TYPE’, ‘UPTIME’
+            Otherwise you get error message
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: >-
+            system info
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/data"
+
+        "400":
+          description: bad input parameter
+components:
+  schemas:
+    data:
+      type: object
+      properties:
+        uptime:
+          type: string
+
+        type:
+          type: string
+
+        totalmem:
+          type: string
+
+        platform:
+          type: string
+        hostname:
+          type: string
+        freemem:
+          type: string
+
+        arch:
+          type: string
+
+        cpus:
+          type: object
+
+    checksum:
+      type: string
